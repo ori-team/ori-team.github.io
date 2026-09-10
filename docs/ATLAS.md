@@ -30,6 +30,7 @@ Mapa de navegação do projeto. Comece aqui, não por buscas indiscriminadas.
 | brand | `src/assets/ori-team-logo.svg`, `OriTeamLogo.astro` | Logo adaptativa ao tema |
 | pages | `src/content/docs/` | Home, projetos, contribuidores, detalhes (PR3) |
 | data | `src/data/projects.ts` (PR2+) | Única fonte de metadados dos projetos |
+| showcase | `ProjectGrid`, `ProjectCard`, `RepoLink` | Vitrine lista/thumbnail + link externo |
 | sync | `scripts/sync-readmes.mjs` (PR3) | Import build-time dos READMEs |
 
 ## Catálogo

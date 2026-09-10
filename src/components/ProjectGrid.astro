@@ -1,0 +1,135 @@
+---
+// Grade de projetos com alternador lista/thumbnail.
+// Estado persistido em localStorage; re-inicializado a cada View Transition.
+import { GridFour, List } from "../lib/icons";
+import ProjectCard from "./ProjectCard.astro";
+import { PROJECTS } from "../data/projects";
+---
+
+<section class="projects-section" aria-label="Projetos">
+  <div class="projects-toolbar">
+    <h2>Projetos</h2>
+    <div class="view-toggle" role="group" aria-label="Modo de visualização">
+      <button type="button" data-set-view="grid" aria-pressed="true" title="Miniaturas">
+        <GridFour width={18} height={18} aria-hidden="true" />
+        <span class="sr-only">Miniaturas</span>
+      </button>
+      <button type="button" data-set-view="list" aria-pressed="false" title="Lista">
+        <List width={18} height={18} aria-hidden="true" />
+        <span class="sr-only">Lista</span>
+      </button>
+    </div>
+  </div>
+  <div class="projects" data-view="grid">
+    {PROJECTS.map((project) => <ProjectCard project={project} />)}
+  </div>
+</section>
+
+<script>
+  import { animate } from "animejs";
+
+  const STORAGE_KEY = "oriteam-projects-view";
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function applyView(root: HTMLElement, view: string) {
+    root.dataset.view = view;
+    root
+      .closest(".projects-section")
+      ?.querySelectorAll("[data-set-view]")
+      .forEach((btn) => btn.setAttribute("aria-pressed", String(btn.getAttribute("data-set-view") === view)));
+    try {
+      localStorage.setItem(STORAGE_KEY, view);
+    } catch {
+      /* modo privado: segue sem persistir */
+    }
+  }
+
+  function entrance(root: HTMLElement) {
+    if (reduceMotion) return;
+    animate(root.querySelectorAll(".project-card"), {
+      opacity: [0, 1],
+      translateY: [12, 0],
+      duration: 600,
+      delay: (_el, i) => (i ?? 0) * 80,
+      ease: "outExpo",
+    });
+  }
+
+  function init() {
+    document.querySelectorAll<HTMLElement>(".projects").forEach((root) => {
+      let saved: string | null = null;
+      try {
+        saved = localStorage.getItem(STORAGE_KEY);
+      } catch {
+        /* modo privado: usa o padrão */
+      }
+      applyView(root, saved === "list" ? "list" : "grid");
+      root
+        .closest(".projects-section")
+        ?.querySelectorAll("[data-set-view]")
+        .forEach((btn) =>
+          btn.addEventListener("click", () => applyView(root, btn.getAttribute("data-set-view") ?? "grid")),
+        );
+      entrance(root);
+    });
+  }
+
+  document.addEventListener("astro:page-load", init);
+  init();
+</script>
+
+<style>
+  .projects-section {
+    margin-block: 2.5rem 1rem;
+  }
+  .projects-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .projects-toolbar h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
+  }
+  .view-toggle {
+    display: flex;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  .view-toggle button {
+    display: flex;
+    padding: 0.45rem 0.6rem;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: var(--sl-color-gray-5);
+  }
+  .view-toggle button[aria-pressed="true"] {
+    background: var(--sl-color-text);
+    color: var(--sl-color-text-invert);
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+  .projects {
+    display: grid;
+    gap: 1rem;
+  }
+  .projects[data-view="grid"] {
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  }
+  .projects[data-view="grid"] .project-card {
+    flex-direction: column;
+  }
+  .projects[data-view="list"] {
+    grid-template-columns: 1fr;
+  }
+</style>

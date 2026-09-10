@@ -1,0 +1,31 @@
+---
+// Link externo para o repositório: sempre nova aba + noopener.
+import { ArrowSquareOut } from "../lib/icons";
+
+interface Props {
+  href: string;
+  label?: string;
+}
+
+const { href, label = "Repositório" } = Astro.props;
+---
+
+<a class="repo-link" href={href} target="_blank" rel="noopener">
+  {label}
+  <ArrowSquareOut width={14} height={14} aria-hidden="true" />
+</a>
+
+<style>
+  .repo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--sl-color-text-accent);
+    text-decoration: none;
+  }
+  .repo-link:hover {
+    text-decoration: underline;
+  }
+</style>
