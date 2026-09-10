@@ -3,7 +3,7 @@
 Vitrine institucional da [ori-team](https://github.com/ori-team): projetos, detalhes e contribuidores.
 Publicado em <https://ori-team.github.io/oriteam-website/> via GitHub Pages.
 
-Stack: Astro + Starlight + UnoCSS + phosphor-astro + anime.js. Decisões em `docs/adr/`, mapa em `docs/ATLAS.md`.
+Stack: Astro (puro, sem Starlight — ver `docs/adr/ADR-004-sem-starlight.md`) + UnoCSS + phosphor-astro + anime.js. Decisões em `docs/adr/`, mapa em `docs/ATLAS.md`.
 
 ```sh
 npm install

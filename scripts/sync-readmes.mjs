@@ -54,6 +54,8 @@ function rewriteRelativeUrls(body, repo, ref) {
       })
       // MDX exige void elements fechados: <img> → <img />.
       .replace(/<(img|br|hr|input|source)\b([^<>]*[^<>\s/])\s*>/gi, "<$1$2 />")
+      // Autolinks nus (<https://…>) quebram o MDX — vira link explícito.
+      .replace(/<(https?:[^<>\s]+)>/g, "[$1]($1)")
   );
 }
 
