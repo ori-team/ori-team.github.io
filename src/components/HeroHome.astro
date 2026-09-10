@@ -1,6 +1,7 @@
 ---
 // Hero da home: logo + tagline + ações vindas do frontmatter da página.
 import OriTeamLogo from "./OriTeamLogo.astro";
+import { siteUrl } from "../lib/url";
 
 interface Action {
   text: string;
@@ -14,6 +15,10 @@ const { title, tagline, actions = [] } = Astro.props as {
   tagline?: string;
   actions?: Action[];
 };
+
+// Frontmatter usa links raiz ("/projetos/"); aqui ganham o `base` do deploy.
+const actionHref = (link: string) => (link.startsWith("/") ? siteUrl(link) : link);
+const isExternal = (link: string) => link.startsWith("http");
 ---
 
 <div class="oriteam-hero">
@@ -25,9 +30,9 @@ const { title, tagline, actions = [] } = Astro.props as {
       <div class="actions">
         {actions.map((action) => (
           <a
-            href={action.link}
+            href={actionHref(action.link)}
             class:list={["action", action.variant ?? "secondary"]}
-            {...(action.link.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}
+            {...(isExternal(action.link) ? { target: "_blank", rel: "noopener" } : {})}
           >
             {action.text}
           </a>

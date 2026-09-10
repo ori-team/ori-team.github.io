@@ -5,6 +5,10 @@ import starlight from "@astrojs/starlight";
 import UnoCSS from "unocss/vite";
 
 export default defineConfig({
+  // Deploy: GitHub Pages da org (https://ori-team.github.io/oriteam-website/).
+  // Links internos usam src/lib/url.ts para respeitar este base.
+  site: "https://ori-team.github.io",
+  base: "/oriteam-website",
   vite: {
     plugins: [UnoCSS()],
   },
