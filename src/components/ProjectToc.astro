@@ -22,12 +22,16 @@ import { ListBullets, X } from "../lib/icons";
   // sintaxe TS aqui quebra o parse e o código chega cru (e morto) no HTML.
   function initTocFab() {
     document.querySelectorAll(".toc-fab").forEach((root) => {
+      // O módulo roda no eval + em `astro:page-load` (que dispara também no
+      // load inicial): sem a guarda, listeners duplicados leriam o estado
+      // já mutado (abre-e-fecha no mesmo clique).
+      if (!(root instanceof HTMLElement) || root.dataset.tocReady) return;
+      root.dataset.tocReady = "1";
       const menu = root.querySelector(".toc-menu");
       const list = root.querySelector(".toc-menu ol");
       const button = root.querySelector(".toc-button");
       const article = root.closest("article");
       if (
-        !(root instanceof HTMLElement) ||
         !(menu instanceof HTMLElement) ||
         !(list instanceof HTMLOListElement) ||
         !(button instanceof HTMLButtonElement) ||

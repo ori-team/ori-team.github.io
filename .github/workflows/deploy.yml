@@ -26,6 +26,12 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run check-links
+      - run: npx playwright install --with-deps chromium
+      - run: (nohup npm run preview -- --port 4321 > /tmp/preview.log 2>&1 &)
+        shell: bash
+      - run: sleep 8 && npm run test:e2e
+        env:
+          E2E_BASE: http://localhost:4321
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

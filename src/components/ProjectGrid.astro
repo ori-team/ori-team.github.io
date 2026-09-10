@@ -61,6 +61,9 @@ import { PROJECTS } from "../data/projects";
 
   function init() {
     document.querySelectorAll(".projects").forEach((root) => {
+      // Mesma guarda do FAB: eval + `astro:page-load` no load inicial.
+      if (root.dataset.gridReady) return;
+      root.dataset.gridReady = "1";
       let saved = null;
       try {
         saved = localStorage.getItem(STORAGE_KEY);

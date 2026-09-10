@@ -23,7 +23,12 @@ Tema: escolha salva → sistema → claro. Toggle persiste em `localStorage`; `t
 
 ## Client-side
 
-`<script>` em componente `.astro` deve ser **JS puro, sem sintaxe TS**: qualquer `<T>`/anotação quebra o parse do bundler e o código chega cru (e morto) no HTML — foi assim que o toggle e o FAB quebraram silenciosamente (PR9). Imports de pacote (`animejs`) funcionam. `// @ts-nocheck` no topo desses scripts com o motivo.
+`<script>` em componente `.astro` deve ser **JS puro, sem sintaxe TS**: qualquer `<T>`/anotação quebra o parse do bundler e o código chega cru (e morto) no HTML — foi assim que o toggle e o FAB quebraram silenciosamente (PR9). Imports de pacote (`animejs`) funcionam. `// @ts-nocheck` no topo desses scripts com o motivo. E toda inicialização
+precisa de guarda anti-duplo-init (`dataset.*Ready`): o módulo roda no eval
++ em `astro:page-load` (que dispara também no load inicial); listeners
+duplicados que leem estado mutável se anulam (abre-e-fecha no mesmo clique
+— foi assim que FAB e tema quebraram em silêncio, PR10). E2E (`npm run test:e2e`,
+Playwright) valida FAB, toggle, tema e ausência de erro JS.
 
 ## Dados
 

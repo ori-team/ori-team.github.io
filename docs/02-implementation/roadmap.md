@@ -8,6 +8,7 @@
 - **PR6 — mobile e detalhe:** tabbar estilo app, cards clicáveis, logo com cores originais + outline no dark, TOC, metas OG.
 - **PR7 — capítulos flutuantes:** TOC vira FAB no canto direito com menu de seções; affordance de hover nos cards.
 - **PR8 — URL raiz:** repo `ori-team.github.io`, `base: "/"`, check-links genérico.
-- **PR9 — scripts client-side (atual):** toggle e FAB mortos por sintaxe TS em `<script>` de componente → JS puro + regra em arquitetura; centralização das páginas.
+- **PR9 — scripts client-side:** toggle e FAB mortos por sintaxe TS em `<script>` de componente → JS puro + regra em arquitetura; centralização das páginas.
+- **PR10 — E2E com Playwright (atual):** suíte `tests/e2e.mjs` pega a causa real (duplo-init anulando FAB/tema) → guardas `dataset.*Ready`; `.ot-prose` centralizado.
 
 Critérios de aceite do site: build verde; light bege (não branco puro); dark sem flash; toggle lista/grid persiste; link GitHub abre em nova aba; detalhe renderiza o README real.

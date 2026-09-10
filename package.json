@@ -7,6 +7,7 @@
   "scripts": {
     "sync-readmes": "node scripts/sync-readmes.mjs",
     "check-links": "node scripts/check-links.mjs",
+    "test:e2e": "node tests/e2e.mjs",
     "predev": "npm run sync-readmes",
     "prebuild": "npm run sync-readmes",
     "dev": "astro dev",
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
+    "@playwright/test": "^1.63.0",
     "typescript": "^5.7.0",
     "unocss": "^66.10.1"
   },

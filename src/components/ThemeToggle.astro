@@ -35,6 +35,11 @@ import { Moon, Sun } from "../lib/icons";
 
   function init() {
     document.querySelectorAll(".theme-toggle").forEach((btn) => {
+      if (!(btn instanceof HTMLElement)) return;
+      // Guarda anti-duplo-init (eval + `astro:page-load`): dois `toggle`
+      // no mesmo clique se anulariam (claro→escuro→claro).
+      if (btn.dataset.toggleReady) return;
+      btn.dataset.toggleReady = "1";
       btn.addEventListener("click", toggle);
     });
     paint();
