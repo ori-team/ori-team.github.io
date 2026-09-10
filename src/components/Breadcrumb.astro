@@ -1,0 +1,56 @@
+---
+// Trilha de navegação das páginas internas (ex.: projetos › oride).
+import { siteUrl } from "../lib/url";
+
+interface Crumb {
+  href?: string;
+  label: string;
+}
+
+const { trail } = Astro.props as { trail: Crumb[] };
+---
+
+<nav class="breadcrumb" aria-label="Trilha de navegação">
+  <ol>
+    {
+      trail.map((crumb, i) => (
+        <li>
+          {i > 0 && <span aria-hidden="true">›</span>}
+          {crumb.href ? <a href={siteUrl(crumb.href)}>{crumb.label}</a> : <span aria-current="page">{crumb.label}</span>}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  .breadcrumb {
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+  }
+  .breadcrumb ol {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .breadcrumb li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--sl-color-gray-2);
+  }
+  .breadcrumb a {
+    color: var(--sl-color-gray-2);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover {
+    color: var(--sl-color-text-accent);
+  }
+  .breadcrumb [aria-current="page"] {
+    color: var(--sl-color-text);
+    font-weight: 600;
+  }
+</style>

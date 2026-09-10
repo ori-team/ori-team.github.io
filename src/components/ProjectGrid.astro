@@ -102,11 +102,17 @@ import { PROJECTS } from "../data/projects";
   }
   .view-toggle button {
     display: flex;
-    padding: 0.45rem 0.6rem;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    padding: 0.5rem 0.65rem;
     background: transparent;
     border: 0;
     cursor: pointer;
-    color: var(--sl-color-gray-5);
+    color: var(--sl-color-gray-2);
+  }
+  .view-toggle button svg {
+    display: block;
   }
   .view-toggle button[aria-pressed="true"] {
     background: var(--sl-color-text);

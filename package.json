@@ -5,6 +5,9 @@
   "private": true,
   "description": "Site institucional da ori-team: projetos, detalhes e contribuidores",
   "scripts": {
+    "sync-readmes": "node scripts/sync-readmes.mjs",
+    "predev": "npm run sync-readmes",
+    "prebuild": "npm run sync-readmes",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",

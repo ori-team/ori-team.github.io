@@ -5,55 +5,36 @@
  * Tema ori-team sobre o Starlight.
  * Light = branco quente puxado pro bege (nunca branco puro).
  * Dark  = marrom-acinzentado quente, para harmonizar com a logo.
+ *
+ * ATENÇÃO: --sl-color-white/black e gray-1..6 INVERTEM o sentido por tema
+ * (gray-1 é sempre o tom mais "forte", gray-6 o mais "sutil"). Por isso
+ * todos são definidos por tema — nunca incondicionais — senão títulos
+ * (que usam --sl-color-white) somem no light.
  * ------------------------------------------------------------------ */
 
 :root {
   --sl-font: "Geist Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --sl-font-mono: "Geist Mono Variable", ui-monospace, SFMono-Regular, monospace;
-
-  /* Acento laranja queimado, derivado da logo (#eb772a). */
-  --sl-color-accent-low: #f7e2c8;
-  --sl-color-accent: #b25a12;
-  --sl-color-accent-high: #7a3d0a;
-
-  --sl-color-white: #fffdf8;
-  --sl-color-gray-1: #f4efe3;
-  --sl-color-gray-2: #e9e1d0;
-  --sl-color-gray-3: #d3c8ae;
-  --sl-color-gray-4: #a89a7d;
-  --sl-color-gray-5: #6f6350;
-  --sl-color-gray-6: #453c30;
-  --sl-color-black: #2b251d;
-
-  --sl-color-bg: #faf7f0;
-  --sl-color-bg-nav: #faf7f0;
-  --sl-color-bg-sidebar: #f4efe3;
-  --sl-color-bg-inline-code: #f1e9d8;
-  --sl-color-hairline-light: #ece4d2;
-  --sl-color-hairline: #ddd2b8;
-  --sl-color-hairline-shade: #c6b78f;
-
-  --sl-color-text: #2b251d;
-  --sl-color-text-accent: #96500e;
-  --sl-color-text-invert: #faf7f0;
-
-  /* Cor dos traços escuros da logo (SVG inline usa currentColor). */
-  --oriteam-logo-ink: #221c14;
 }
 
-:root[data-theme="dark"] {
+/* ---------- Dark (base do Starlight) ---------- */
+:root {
   --sl-color-accent-low: #3d2a15;
   --sl-color-accent: #e8933f;
   --sl-color-accent-high: #f4c48a;
 
   --sl-color-white: #ece4d3;
-  --sl-color-gray-1: #2b251e;
-  --sl-color-gray-2: #383027;
-  --sl-color-gray-3: #55483a;
-  --sl-color-gray-4: #85735d;
-  --sl-color-gray-5: #b3a48c;
-  --sl-color-gray-6: #d6cbb4;
+  --sl-color-gray-1: #ece4d3;
+  --sl-color-gray-2: #cfc3ab;
+  --sl-color-gray-3: #a89a7d;
+  --sl-color-gray-4: #7d6f59;
+  --sl-color-gray-5: #57493a;
+  --sl-color-gray-6: #2b251e;
   --sl-color-black: #14110d;
+
+  --sl-color-text: #ece4d3;
+  --sl-color-text-accent: #e8933f;
+  --sl-color-text-invert: #171310;
 
   --sl-color-bg: #171310;
   --sl-color-bg-nav: #171310;
@@ -63,11 +44,38 @@
   --sl-color-hairline: #3d342a;
   --sl-color-hairline-shade: #57493a;
 
-  --sl-color-text: #ece4d3;
-  --sl-color-text-accent: #e8933f;
-  --sl-color-text-invert: #171310;
-
+  /* Cor dos traços escuros da logo (SVG inline usa currentColor). */
   --oriteam-logo-ink: #f2ead9;
+}
+
+/* ---------- Light bege ---------- */
+:root[data-theme="light"] {
+  --sl-color-accent-low: #f7e2c8;
+  --sl-color-accent: #b25a12;
+  --sl-color-accent-high: #7a3d0a;
+
+  --sl-color-white: #2b251d;
+  --sl-color-gray-1: #453c30;
+  --sl-color-gray-2: #6f6350;
+  --sl-color-gray-3: #a89a7d;
+  --sl-color-gray-4: #c9bfa9;
+  --sl-color-gray-5: #ddd2b8;
+  --sl-color-gray-6: #ece4d2;
+  --sl-color-black: #faf7f0;
+
+  --sl-color-text: #2b251d;
+  --sl-color-text-accent: #96500e;
+  --sl-color-text-invert: #faf7f0;
+
+  --sl-color-bg: #faf7f0;
+  --sl-color-bg-nav: #faf7f0;
+  --sl-color-bg-sidebar: #f4efe3;
+  --sl-color-bg-inline-code: #f1e9d8;
+  --sl-color-hairline-light: #ece4d2;
+  --sl-color-hairline: #ddd2b8;
+  --sl-color-hairline-shade: #c6b78f;
+
+  --oriteam-logo-ink: #221c14;
 }
 
 /* ---------- Header ori-team ---------- */
@@ -101,12 +109,12 @@
   border-radius: 0.375rem;
   text-decoration: none;
   font-size: 0.9rem;
-  color: var(--sl-color-gray-5);
+  color: var(--sl-color-gray-2);
 }
 
 .oriteam-nav a:hover {
   color: var(--sl-color-text);
-  background: var(--sl-color-gray-1);
+  background: var(--sl-color-gray-6);
 }
 
 .oriteam-nav a[aria-current="page"] {
@@ -117,25 +125,45 @@
 /* ---------- Hero / logo ---------- */
 
 .oriteam-hero-logo {
-  width: min(300px, 70vw);
+  width: min(400px, 82vw);
   height: auto;
   color: var(--oriteam-logo-ink);
+}
+
+/* Contorno claro na silhueta SÓ no dark: destaca sem recolorir a logo. */
+:root[data-theme="dark"] .oriteam-hero-logo svg {
+  filter: url("#ori-team-outline");
 }
 
 .oriteam-hero {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 1.25rem;
-  padding-block: 3rem 2rem;
+  min-height: calc(100vh - var(--sl-nav-height));
+  padding-block: 2rem;
   text-align: center;
 }
 
 .oriteam-hero .tagline {
   font-size: 1.15rem;
-  color: var(--sl-color-gray-5);
+  color: var(--sl-color-gray-2);
   max-width: 36rem;
   line-height: 1.6;
+  margin: 0;
+}
+
+.oriteam-hero .about {
+  font-size: 1rem;
+  color: var(--sl-color-gray-2);
+  max-width: 44rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.oriteam-hero .about strong {
+  color: var(--sl-color-text);
 }
 
 /* ---------- Footer ---------- */
@@ -144,7 +172,7 @@
   border-top: 1px solid var(--sl-color-hairline-light);
   padding-block: 1.5rem;
   font-size: 0.85rem;
-  color: var(--sl-color-gray-5);
+  color: var(--sl-color-gray-2);
 }
 
 .oriteam-footer-inner {

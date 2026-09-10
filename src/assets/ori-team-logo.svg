@@ -10,7 +10,7 @@
    xml:space="preserve"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"><defs
-     id="defs2" /><g
+     id="defs2"><filter id="ori-team-outline" x="-10%" y="-10%" width="120%" height="120%"><feMorphology in="SourceAlpha" operator="dilate" radius="1.4" result="dilated"/><feFlood flood-color="#FFFDF8" flood-opacity="0.9" result="tint"/><feComposite in="tint" in2="dilated" operator="in" result="outline"/><feMerge><feMergeNode in="outline"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g
      id="layer1"
      transform="translate(-33.217259,-114.17349)"><g
        id="g5163"
