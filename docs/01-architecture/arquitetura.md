@@ -1,4 +1,4 @@
-# Arquitetura — oriteam-website
+# Arquitetura — ori-team.github.io
 
 ## Stack
 

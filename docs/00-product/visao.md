@@ -1,4 +1,4 @@
-# Visão — oriteam-website
+# Visão — ori-team.github.io
 
 ## O que é
 

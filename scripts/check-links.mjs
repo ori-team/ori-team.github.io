@@ -21,7 +21,7 @@ function resolveTarget(href) {
   const clean = href.split("#")[0].split("?")[0];
   if (!clean) return null; // âncora pura
   if (!clean.startsWith("/")) return null; // relativo (raro aqui) — ignora
-  const rel = clean.replace(/^\/oriteam-website\/?/, "");
+  const rel = clean.replace(/^\//, "");
   if (rel === "" || rel.endsWith("/")) return path.join(dist, rel, "index.html");
   if (/\.[a-z0-9]+$/i.test(rel)) return path.join(dist, rel); // asset com extensão
   if (rel.endsWith(".html")) return path.join(dist, rel);

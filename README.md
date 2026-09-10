@@ -1,7 +1,7 @@
-# oriteam-website
+# ori-team.github.io
 
 Vitrine institucional da [ori-team](https://github.com/ori-team): projetos, detalhes e contribuidores.
-Publicado em <https://ori-team.github.io/oriteam-website/> via GitHub Pages.
+Publicado em <https://ori-team.github.io/> via GitHub Pages.
 
 Stack: Astro (puro, sem Starlight — ver `docs/adr/ADR-004-sem-starlight.md`) + UnoCSS + phosphor-astro + anime.js. Decisões em `docs/adr/`, mapa em `docs/ATLAS.md`.
 

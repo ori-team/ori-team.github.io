@@ -1,4 +1,4 @@
-# AGENTS.md — oriteam-website
+# AGENTS.md — ori-team.github.io
 
 Instruções para agentes (humanos e IA) neste repositório.
 

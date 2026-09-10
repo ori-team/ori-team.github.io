@@ -6,10 +6,10 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  // Deploy: GitHub Pages da org (https://ori-team.github.io/oriteam-website/).
+  // Deploy: GitHub Pages da org na raiz (https://ori-team.github.io/).
   // Links internos usam src/lib/url.ts para respeitar este base.
   site: "https://ori-team.github.io",
-  base: "/oriteam-website",
+  base: "/",
   vite: {
     plugins: [UnoCSS()],
   },

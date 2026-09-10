@@ -1,4 +1,4 @@
-# ATLAS — oriteam-website
+# ATLAS — ori-team.github.io
 
 Mapa de navegação do projeto. Comece aqui, não por buscas indiscriminadas.
 
