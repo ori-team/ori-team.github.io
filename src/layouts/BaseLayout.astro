@@ -4,6 +4,7 @@
 import { ClientRouter } from "astro:transitions";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import MobileTabbar from "../components/MobileTabbar.astro";
 import { siteUrl } from "../lib/url";
 import "../styles/tokens.css";
 
@@ -14,6 +15,8 @@ interface Props {
 
 const { title, description } = Astro.props;
 const pageTitle = title === "ori-team" ? "ori-team" : `${title} | ori-team`;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
+const ogImage = new URL(siteUrl("/favicon.svg"), Astro.site ?? Astro.url.origin).href;
 ---
 
 <!doctype html>
@@ -23,6 +26,13 @@ const pageTitle = title === "ori-team" ? "ori-team" : `${title} | ori-team`;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href={siteUrl("/favicon.svg")} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary" />
     <title>{pageTitle}</title>
     <script is:inline src={siteUrl("/theme-init.js")}></script>
     <ClientRouter />
@@ -35,6 +45,7 @@ const pageTitle = title === "ori-team" ? "ori-team" : `${title} | ori-team`;
       <slot />
     </main>
     <Footer />
+    <MobileTabbar />
     <script>
       // Reaplica o tema salvo a cada View Transition (o <html> é persistido,
       // mas garante consistência se o DOM for reconstruído).

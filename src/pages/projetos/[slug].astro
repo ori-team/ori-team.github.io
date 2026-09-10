@@ -1,6 +1,9 @@
 ---
 import { getCollection, render, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import ProjectHeader from "../../components/ProjectHeader.astro";
+import ProjectToc from "../../components/ProjectToc.astro";
 
 export async function getStaticPaths() {
   const entries = await getCollection("projects");
@@ -15,11 +18,17 @@ interface Props {
 }
 
 const { entry } = Astro.props;
+const slug = entry.id.replace(/\.mdx$/, "");
 const { Content } = await render(entry);
 ---
 
 <BaseLayout title={entry.data.title} description={entry.data.description ?? `Detalhes do projeto ${entry.data.title}.`}>
-  <article class="ot-prose ot-markdown">
-    <Content />
-  </article>
+  <div class="ot-prose">
+    <Breadcrumb trail={[{ href: "/projetos/", label: "projetos" }, { label: entry.data.title }]} />
+    <ProjectHeader slug={slug} />
+    <article class="ot-markdown">
+      <ProjectToc />
+      <Content />
+    </article>
+  </div>
 </BaseLayout>

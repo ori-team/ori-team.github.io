@@ -34,6 +34,7 @@ const Icon = ICONS[project.icon];
 
 <style>
   .project-card {
+    position: relative;
     display: flex;
     gap: 1rem;
     padding: 1.25rem;
@@ -72,6 +73,13 @@ const Icon = ICONS[project.icon];
   .project-name a {
     color: inherit;
     text-decoration: none;
+  }
+  /* Card inteiro clicável para o detalhe; RepoLink fica por cima. */
+  .project-name a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
   }
   .project-name a:hover {
     color: var(--ot-accent);

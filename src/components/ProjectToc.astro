@@ -1,0 +1,74 @@
+---
+// Índice da página de detalhe: monta a lista de h2/h3 do artigo no cliente
+// (evita adivinhar slugs de âncora no build). Some se não houver seções.
+---
+
+<nav class="project-toc" aria-label="Nesta página" hidden>
+  <p>Nesta página</p>
+  <ol></ol>
+</nav>
+
+<script>
+  function buildToc() {
+    document.querySelectorAll<HTMLElement>(".project-toc").forEach((nav) => {
+      const article = nav.closest("article");
+      const list = nav.querySelector("ol");
+      if (!article || !list) return;
+      list.replaceChildren();
+      article.querySelectorAll("h2, h3").forEach((heading) => {
+        if (!heading.id || !heading.textContent?.trim()) return;
+        const item = document.createElement("li");
+        if (heading.tagName === "H3") item.classList.add("sub");
+        const link = document.createElement("a");
+        link.href = `#${heading.id}`;
+        link.textContent = heading.textContent.trim();
+        item.appendChild(link);
+        list.appendChild(item);
+      });
+      nav.hidden = list.childElementCount === 0;
+    });
+  }
+
+  document.addEventListener("astro:page-load", buildToc);
+  buildToc();
+</script>
+
+<style>
+  .project-toc {
+    border: 1px solid var(--ot-line-soft);
+    border-radius: 0.75rem;
+    background: var(--ot-surface);
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .project-toc[hidden] {
+    display: none;
+  }
+  .project-toc p {
+    margin: 0 0 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ot-ink-soft);
+  }
+  .project-toc ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .project-toc li.sub {
+    padding-left: 1rem;
+  }
+  .project-toc a {
+    color: var(--ot-ink-soft);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  .project-toc a:hover {
+    color: var(--ot-accent);
+  }
+</style>

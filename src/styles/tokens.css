@@ -32,7 +32,9 @@
   --ot-line-strong: #57493a;
 
   --ot-on-ink: #171310;
-  --ot-logo-ink: #f2ead9;
+  /* Tinta original da logo (#141313) nos dois temas — no dark o destaque
+     vem do contorno, nunca de recolorir (ver regra abaixo). */
+  --ot-logo-ink: #141313;
 }
 
 :root[data-theme="light"] {
@@ -51,9 +53,8 @@
   --ot-line: #ddd2b8;
   --ot-line-soft: #ece4d2;
   --ot-line-strong: #c6b78f;
-
   --ot-on-ink: #faf7f0;
-  --ot-logo-ink: #221c14;
+  --ot-logo-ink: #141313;
 }
 
 /* ---------- Base ---------- */
@@ -134,6 +135,12 @@ pre {
 .oriteam-nav a[aria-current="page"] {
   color: var(--ot-accent);
   font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .oriteam-nav {
+    display: none;
+  }
 }
 
 .theme-toggle {

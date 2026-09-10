@@ -56,6 +56,8 @@ function rewriteRelativeUrls(body, repo, ref) {
       .replace(/<(img|br|hr|input|source)\b([^<>]*[^<>\s/])\s*>/gi, "<$1$2 />")
       // Autolinks nus (<https://…>) quebram o MDX — vira link explícito.
       .replace(/<(https?:[^<>\s]+)>/g, "[$1]($1)")
+      // "<" fora de HTML (ex.: "<5ms", "a<=b") também quebra — escapa.
+      .replace(/<(?=[0-9=])/g, "&lt;")
   );
 }
 
@@ -71,13 +73,6 @@ function toMdx(slug, body) {
 title: "${slug}"
 description: "Detalhes, documentação e código do projeto ${slug}."
 ---
-
-import Breadcrumb from "../../components/Breadcrumb.astro";
-import ProjectHeader from "../../components/ProjectHeader.astro";
-
-<Breadcrumb trail={[{ href: "/projetos/", label: "projetos" }, { label: "${slug}" }]} />
-
-<ProjectHeader slug="${slug}" />
 
 ${body.trim()}
 `;

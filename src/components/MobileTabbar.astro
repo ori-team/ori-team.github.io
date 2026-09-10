@@ -1,0 +1,67 @@
+---
+// Tabbar estilo app: só aparece no mobile (ver tokens.css). Fixa no rodapé
+// com as 3 seções; no desktop a navegação vive no header.
+import { House, SquaresFour, Users } from "../lib/icons";
+import { siteUrl } from "../lib/url";
+
+const homeUrl = siteUrl("/");
+const tabs = [
+  { href: homeUrl, label: "home", Icon: House },
+  { href: siteUrl("/projetos/"), label: "projetos", Icon: SquaresFour },
+  { href: siteUrl("/contribuidores/"), label: "contribuidores", Icon: Users },
+];
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === homeUrl ? currentPath === homeUrl : currentPath.startsWith(href);
+---
+
+<nav class="ot-tabbar" aria-label="Principal">
+  {
+    tabs.map(({ href, label, Icon }) => (
+      <a href={href} aria-current={isActive(href) ? "page" : undefined}>
+        <Icon width={22} height={22} aria-hidden="true" />
+        <span>{label}</span>
+      </a>
+    ))
+  }
+</nav>
+
+<style>
+  .ot-tabbar {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .ot-tabbar {
+      display: flex;
+      position: fixed;
+      inset-inline: 0;
+      bottom: 0;
+      z-index: 20;
+      background: color-mix(in srgb, var(--ot-bg) 88%, transparent);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--ot-line-soft);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .ot-tabbar a {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.15rem;
+      padding: 0.6rem 0.25rem 0.55rem;
+      text-decoration: none;
+      font-size: 0.7rem;
+      color: var(--ot-ink-soft);
+    }
+    .ot-tabbar a[aria-current="page"] {
+      color: var(--ot-accent);
+      font-weight: 600;
+    }
+    /* Espaço para a tabbar não cobrir o rodapé. */
+    :global(body) {
+      padding-bottom: 4rem;
+    }
+  }
+</style>
