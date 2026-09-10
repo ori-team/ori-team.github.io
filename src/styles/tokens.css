@@ -1,0 +1,351 @@
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
+
+/* ------------------------------------------------------------------
+ * Tokens ori-team. Light = branco quente puxado pro bege (nunca puro).
+ * Dark = marrom-acinzentado quente, para harmonizar com a logo.
+ * ------------------------------------------------------------------ */
+
+:root {
+  --ot-font: "Geist Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --ot-font-mono: "Geist Mono Variable", ui-monospace, SFMono-Regular, monospace;
+
+  --ot-nav-height: 3.5rem;
+  --ot-content-width: 72rem;
+  --ot-prose-width: 48rem;
+
+  /* ---------- Dark ---------- */
+  --ot-accent-soft: #3d2a15;
+  --ot-accent: #e8933f;
+  --ot-accent-strong: #f4c48a;
+
+  --ot-ink: #ece4d3;
+  --ot-ink-soft: #cfc3ab;
+  --ot-ink-faint: #7d6f59;
+
+  --ot-bg: #171310;
+  --ot-bg-soft: #1e1915;
+  --ot-surface: #201a14;
+  --ot-code-bg: #2a231c;
+  --ot-line: #3d342a;
+  --ot-line-soft: #2e2720;
+  --ot-line-strong: #57493a;
+
+  --ot-on-ink: #171310;
+  --ot-logo-ink: #f2ead9;
+}
+
+:root[data-theme="light"] {
+  --ot-accent-soft: #f7e2c8;
+  --ot-accent: #b25a12;
+  --ot-accent-strong: #7a3d0a;
+
+  --ot-ink: #2b251d;
+  --ot-ink-soft: #6f6350;
+  --ot-ink-faint: #a89a7d;
+
+  --ot-bg: #faf7f0;
+  --ot-bg-soft: #f4efe3;
+  --ot-surface: #fffdf8;
+  --ot-code-bg: #f1e9d8;
+  --ot-line: #ddd2b8;
+  --ot-line-soft: #ece4d2;
+  --ot-line-strong: #c6b78f;
+
+  --ot-on-ink: #faf7f0;
+  --ot-logo-ink: #221c14;
+}
+
+/* ---------- Base ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--ot-bg);
+  color: var(--ot-ink);
+  font-family: var(--ot-font);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+code,
+kbd,
+pre {
+  font-family: var(--ot-font-mono);
+}
+
+/* ---------- Header ---------- */
+
+.ot-site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--ot-bg);
+  border-bottom: 1px solid var(--ot-line-soft);
+}
+
+.oriteam-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: var(--ot-content-width);
+  margin-inline: auto;
+  padding-inline: 1rem;
+  min-height: var(--ot-nav-height);
+}
+
+.oriteam-brand {
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  color: var(--ot-ink);
+  margin-right: auto;
+}
+
+.oriteam-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.oriteam-nav a {
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.375rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: var(--ot-ink-soft);
+}
+
+.oriteam-nav a:hover {
+  color: var(--ot-ink);
+  background: var(--ot-bg-soft);
+}
+
+.oriteam-nav a[aria-current="page"] {
+  color: var(--ot-accent);
+  font-weight: 600;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--ot-ink-soft);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  color: var(--ot-ink);
+  border-color: var(--ot-line);
+}
+
+.theme-toggle svg {
+  display: block;
+}
+
+/* ---------- Hero / logo ---------- */
+
+.oriteam-hero-logo {
+  width: min(400px, 82vw);
+  height: auto;
+  color: var(--ot-logo-ink);
+}
+
+/* Contorno claro na silhueta SÓ no dark: destaca sem recolorir a logo. */
+:root[data-theme="dark"] .oriteam-hero-logo svg {
+  filter: url("#ori-team-outline");
+}
+
+.oriteam-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  min-height: calc(100vh - var(--ot-nav-height));
+  padding-block: 2rem;
+  text-align: center;
+}
+
+.oriteam-hero .tagline {
+  font-size: 1.15rem;
+  color: var(--ot-ink-soft);
+  max-width: 36rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.oriteam-hero .about {
+  font-size: 1rem;
+  color: var(--ot-ink-soft);
+  max-width: 44rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.oriteam-hero .about strong {
+  color: var(--ot-ink);
+}
+
+/* ---------- Conteúdo ---------- */
+
+.ot-main {
+  width: 100%;
+  max-width: var(--ot-content-width);
+  margin-inline: auto;
+  padding-inline: 1rem;
+  padding-bottom: 4rem;
+}
+
+.ot-prose {
+  max-width: var(--ot-prose-width);
+}
+
+.ot-page-title {
+  margin: 2.5rem 0 0.5rem;
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.ot-page-lead {
+  margin: 0 0 1rem;
+  color: var(--ot-ink-soft);
+}
+
+/* ---------- Markdown (READMEs importados) ---------- */
+
+.ot-markdown {
+  line-height: 1.7;
+}
+
+.ot-markdown h2,
+.ot-markdown h3,
+.ot-markdown h4 {
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin: 2rem 0 0.75rem;
+}
+
+.ot-markdown p {
+  margin: 0 0 1rem;
+}
+
+.ot-markdown a {
+  color: var(--ot-accent);
+  text-decoration: none;
+}
+
+.ot-markdown a:hover {
+  text-decoration: underline;
+}
+
+.ot-markdown img {
+  max-width: 100%;
+  height: auto;
+}
+
+.ot-markdown code {
+  font-size: 0.85em;
+  background: var(--ot-code-bg);
+  padding: 0.15em 0.4em;
+  border-radius: 0.375rem;
+}
+
+.ot-markdown pre {
+  background: var(--ot-code-bg);
+  padding: 1rem 1.25rem;
+  border-radius: 0.625rem;
+  overflow-x: auto;
+}
+
+.ot-markdown pre code {
+  background: none;
+  padding: 0;
+}
+
+.ot-markdown ul,
+.ot-markdown ol {
+  padding-left: 1.5rem;
+  margin: 0 0 1rem;
+}
+
+.ot-markdown li + li {
+  margin-top: 0.25rem;
+}
+
+.ot-markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 1.5rem;
+  font-size: 0.9rem;
+  display: block;
+  overflow-x: auto;
+}
+
+.ot-markdown th,
+.ot-markdown td {
+  border: 1px solid var(--ot-line);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.ot-markdown blockquote {
+  margin: 0 0 1rem;
+  padding-left: 1rem;
+  border-left: 3px solid var(--ot-line-strong);
+  color: var(--ot-ink-soft);
+}
+
+.ot-markdown hr {
+  border: 0;
+  border-top: 1px solid var(--ot-line);
+  margin: 2rem 0;
+}
+
+/* ---------- Footer ---------- */
+
+.oriteam-footer {
+  border-top: 1px solid var(--ot-line-soft);
+  padding-block: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--ot-ink-soft);
+}
+
+.oriteam-footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: var(--ot-content-width);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+.oriteam-footer a {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.oriteam-footer a:hover {
+  color: var(--ot-accent);
+}

@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { siteUrl } from "../lib/url";
+---
+
+<BaseLayout title="Página não encontrada" description="A página que você procura não existe.">
+  <h1 class="ot-page-title">Página não encontrada</h1>
+  <p class="ot-page-lead">Essa página não existe ou foi movida.</p>
+  <p><a class="back-link" href={siteUrl("/")}>← Voltar para a home</a></p>
+</BaseLayout>
+
+<style>
+  .back-link {
+    color: var(--ot-accent);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .back-link:hover {
+    text-decoration: underline;
+  }
+</style>

@@ -7,3 +7,4 @@
 - `docs/adr/ADR-001-starlight-com-overrides.md` — por que Starlight + overrides
 - `docs/adr/ADR-002-readme-sync-build.md` — READMEs via script de build
 - `docs/adr/ADR-003-view-transitions.md` — sensação SPA sem router client-side
+- `docs/adr/ADR-004-sem-starlight.md` — por que Astro puro no lugar do Starlight

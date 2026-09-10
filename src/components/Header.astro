@@ -1,8 +1,6 @@
 ---
-// Header custom: esquerda só "ori-team", direita nav + busca + tema.
-// A página ativa é marcada via aria-current para o CSS destacar.
-import Search from "@astrojs/starlight/components/Search.astro";
-import ThemeSelect from "@astrojs/starlight/components/ThemeSelect.astro";
+// Header: esquerda só "ori-team", direita nav + tema.
+import ThemeToggle from "./ThemeToggle.astro";
 import { siteUrl } from "../lib/url";
 
 const homeUrl = siteUrl("/");
@@ -28,6 +26,5 @@ const isActive = (href: string) =>
       ))
     }
   </nav>
-  <Search {...Astro.props} />
-  <ThemeSelect {...Astro.props} />
+  <ThemeToggle />
 </div>

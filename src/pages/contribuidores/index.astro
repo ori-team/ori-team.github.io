@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Contribuidores" description="Quem constrói a ori-team.">
+  <h1 class="ot-page-title">Contribuidores</h1>
+  <p class="ot-page-lead">Quem constrói a ori-team.</p>
+  <article class="contributor-card">
+    <img
+      src="https://github.com/raillen.png"
+      alt="Foto de perfil de Raillen"
+      width="72"
+      height="72"
+      loading="lazy"
+    />
+    <div>
+      <h2>Raillen</h2>
+      <p>Fundador e mantenedor da ori-team — linguagem Ori, Oride e este site.</p>
+      <p>
+        <a href="https://github.com/raillen" target="_blank" rel="noopener">@raillen</a>
+        {" · "}
+        <a href="https://github.com/ori-team" target="_blank" rel="noopener">ori-team</a>
+      </p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .contributor-card {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    max-width: var(--ot-prose-width);
+    padding: 1.5rem;
+    border: 1px solid var(--ot-line-soft);
+    border-radius: 0.75rem;
+    background: var(--ot-surface);
+  }
+  .contributor-card img {
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .contributor-card h2 {
+    margin: 0 0 0.25rem;
+    font-size: 1.25rem;
+  }
+  .contributor-card p {
+    margin: 0 0 0.5rem;
+    color: var(--ot-ink-soft);
+  }
+  .contributor-card p:last-child {
+    margin-bottom: 0;
+  }
+  .contributor-card a {
+    color: var(--ot-accent);
+    text-decoration: none;
+  }
+  .contributor-card a:hover {
+    text-decoration: underline;
+  }
+</style>

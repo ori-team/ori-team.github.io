@@ -23,12 +23,12 @@ Mapa de navegação do projeto. Comece aqui, não por buscas indiscriminadas.
 
 | Módulo | Onde | Responsabilidade |
 |---|---|---|
-| config | `astro.config.mjs`, `uno.config.ts` | Starlight, UnoCSS, rotas de override |
-| theme | `src/styles/custom.css` | Tokens bege/dark, header/hero/footer |
-| chrome | `src/components/Head|Header|Footer.astro` | Head, navegação, rodapé |
-| home | `src/components/HeroHome.astro`, `src/content/docs/index.mdx` | Logo, tagline, "o que é" |
+| config | `astro.config.mjs`, `uno.config.ts` | MDX, sitemap, UnoCSS, `site`/`base` |
+| theme | `src/styles/tokens.css`, `public/theme-init.js` | Tokens `--ot-*` por tema, anti-flash |
+| chrome | `src/layouts/BaseLayout.astro`, `Header`, `ThemeToggle`, `Footer` | Head, navegação, rodapé |
+| home | `src/pages/index.astro`, `HomeHero` | Logo, tagline, "o que é" |
 | brand | `src/assets/ori-team-logo.svg`, `OriTeamLogo.astro` | Logo adaptativa ao tema |
-| pages | `src/content/docs/` | Home, projetos, contribuidores, detalhes (PR3) |
+| pages | `src/pages/` | Home, projetos, detalhe `[slug]`, contribuidores, 404 |
 | data | `src/data/projects.ts` (PR2+) | Única fonte de metadados dos projetos |
 | showcase | `ProjectGrid`, `ProjectCard`, `ProjectHeader`, `Breadcrumb`, `RepoLink` | Vitrine lista/thumbnail, detalhe e link externo |
 | sync | `scripts/sync-readmes.mjs` (PR3) | Import build-time dos READMEs |

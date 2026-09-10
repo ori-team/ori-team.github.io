@@ -1,0 +1,58 @@
+---
+// Alternador claro/escuro: persiste em localStorage, respeita o sistema
+// na primeira visita (ver public/theme-init.js).
+import { Moon, Sun } from "../lib/icons";
+---
+
+<button type="button" class="theme-toggle" aria-label="Alternar tema">
+  <span class="icon-sun" aria-hidden="true"><Sun width={18} height={18} /></span>
+  <span class="icon-moon" aria-hidden="true"><Moon width={18} height={18} /></span>
+</button>
+
+<script>
+  function currentTheme() {
+    return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+  }
+
+  function paint() {
+    const dark = currentTheme() === "dark";
+    document.querySelectorAll(".theme-toggle").forEach((btn) => {
+      btn.setAttribute("aria-label", dark ? "Mudar para tema claro" : "Mudar para tema escuro");
+      btn.setAttribute("aria-pressed", String(dark));
+    });
+  }
+
+  function toggle() {
+    const next = currentTheme() === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try {
+      localStorage.setItem("oriteam-theme", next);
+    } catch {
+      /* modo privado: troca só na sessão */
+    }
+    paint();
+  }
+
+  function init() {
+    document.querySelectorAll(".theme-toggle").forEach((btn) => {
+      btn.addEventListener("click", toggle);
+    });
+    paint();
+  }
+
+  document.addEventListener("astro:page-load", init);
+  init();
+</script>
+
+<style>
+  /* Mostra sol no dark (clique → clareia) e lua no light (clique → escurece). */
+  .icon-sun {
+    display: none;
+  }
+  :root[data-theme="dark"] .icon-sun {
+    display: block;
+  }
+  :root[data-theme="dark"] .icon-moon {
+    display: none;
+  }
+</style>

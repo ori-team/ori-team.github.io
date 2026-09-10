@@ -1,4 +1,4 @@
-// Gera `src/content/docs/projetos/<slug>.mdx` a partir do README de cada repo.
+// Gera `src/content/projects/<slug>.mdx` a partir do README de cada repo.
 // Fontes: checkout local vizinho (../../<dir>) → raw.githubusercontent (main, master).
 // Falha só se não houver saída anterior para preservar; com saída existente,
 // mantém o arquivo e avisa (dev offline continua funcionando).
@@ -9,7 +9,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
-const outDir = path.join(root, "src", "content", "docs", "projetos");
+const outDir = path.join(root, "src", "content", "projects");
 
 const SOURCES = [
   { slug: "ori-lang", repo: "ori-team/ori-lang", localDir: "ori-lang" },
@@ -70,8 +70,8 @@ title: "${slug}"
 description: "Detalhes, documentação e código do projeto ${slug}."
 ---
 
-import Breadcrumb from "../../../components/Breadcrumb.astro";
-import ProjectHeader from "../../../components/ProjectHeader.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import ProjectHeader from "../../components/ProjectHeader.astro";
 
 <Breadcrumb trail={[{ href: "/projetos/", label: "projetos" }, { label: "${slug}" }]} />
 

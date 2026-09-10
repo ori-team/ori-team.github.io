@@ -1,0 +1,52 @@
+---
+// Layout base de todas as páginas: head, tema anti-flash, View Transitions,
+// header, conteúdo e rodapé.
+import { ClientRouter } from "astro:transitions";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { siteUrl } from "../lib/url";
+import "../styles/tokens.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const pageTitle = title === "ori-team" ? "ori-team" : `${title} | ori-team`;
+---
+
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={siteUrl("/favicon.svg")} />
+    <title>{pageTitle}</title>
+    <script is:inline src={siteUrl("/theme-init.js")}></script>
+    <ClientRouter />
+  </head>
+  <body>
+    <header class="ot-site-header">
+      <Header />
+    </header>
+    <main class="ot-main">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      // Reaplica o tema salvo a cada View Transition (o <html> é persistido,
+      // mas garante consistência se o DOM for reconstruído).
+      function applySavedTheme() {
+        try {
+          const saved = localStorage.getItem("oriteam-theme");
+          if (saved) document.documentElement.dataset.theme = saved;
+        } catch {
+          /* modo privado: mantém o atual */
+        }
+      }
+      document.addEventListener("astro:page-load", applySavedTheme);
+    </script>
+  </body>
+</html>

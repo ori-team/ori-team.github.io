@@ -1,0 +1,59 @@
+---
+// Hero da home: logo, tagline, ações e apresentação do coletivo.
+import OriTeamLogo from "./OriTeamLogo.astro";
+import { siteUrl } from "../lib/url";
+---
+
+<div class="oriteam-hero">
+  <OriTeamLogo />
+  <h1 class="sr-only">ori-team</h1>
+  <p class="tagline">Coletivo open-source por trás da linguagem Ori e suas ferramentas.</p>
+  <div class="actions">
+    <a class="action primary" href={siteUrl("/projetos/")}>Ver projetos</a>
+    <a class="action secondary" href="https://github.com/ori-team" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <p class="about">
+    A <strong>ori-team</strong> é o coletivo que mantém a linguagem de programação <strong>Ori</strong> e
+    as ferramentas ao redor dela: editor, terminal e website. Tudo aberto, tudo no GitHub.
+  </p>
+</div>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+  .actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .action {
+    padding: 0.6rem 1.25rem;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid var(--ot-line);
+  }
+  .action.primary {
+    background: var(--ot-ink);
+    color: var(--ot-on-ink);
+    border-color: transparent;
+  }
+  .action.secondary {
+    color: var(--ot-ink);
+  }
+  .action:hover {
+    border-color: var(--ot-accent);
+    color: var(--ot-accent);
+  }
+  .action.primary:hover {
+    background: var(--ot-accent);
+    color: var(--ot-on-ink);
+  }
+</style>

@@ -4,8 +4,8 @@ title: "oride"
 description: "Detalhes, documentação e código do projeto oride."
 ---
 
-import Breadcrumb from "../../../components/Breadcrumb.astro";
-import ProjectHeader from "../../../components/ProjectHeader.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import ProjectHeader from "../../components/ProjectHeader.astro";
 
 <Breadcrumb trail={[{ href: "/projetos/", label: "projetos" }, { label: "oride" }]} />
 
@@ -18,6 +18,8 @@ import ProjectHeader from "../../../components/ProjectHeader.astro";
 Status: **`0.2.0`** — self-contained TUI mini-IDE (editor, project file tree, PTY terminal, Git/SCM with ahead/behind and pull/push, project search & replace with globs/regex, on-demand multi-LSP, rich Markdown preview with images and links, dynamic splits, opt-in mouse support).  
 Repository: [ori-team/oride](https://github.com/ori-team/oride).  
 Documentation: [User Guide](https://github.com/ori-team/oride/blob/main/docs/guides/en/user-guide.md) · [Architecture & Design](https://github.com/ori-team/oride/blob/main/docs/en/design.md) · [Configuration](https://github.com/ori-team/oride/blob/main/docs/guides/en/config.md) · [Themes](https://github.com/ori-team/oride/blob/main/docs/guides/en/themes.md) · [Roadmap](https://github.com/ori-team/oride/blob/main/docs/en/planning/alpha6-roadmap.md).
+
+![Oride Interface](https://raw.githubusercontent.com/ori-team/oride/main/assets/oride-interface.png)
 
 ## Goals (Lean & Contained Product)
 
@@ -142,6 +144,19 @@ docs/
   en/             # canonical English documentation
   design.md       # architecture & design
 ```
+
+## Roadmap & Upcoming Slices (`v0.3.0`)
+
+Oride follows a strict **lean, contained, and fail-closed** philosophy. The next planned slices include:
+
+- [ ] **Smart Delimiter Auto-Pairing:** Automatic insertion and wrapping of brackets (`()`, `[]`, `{}`) and quotes (`""`, `''`).
+- [ ] **Modal Text Objects:** Expansion of Vim-style motion text objects (`ci(`, `da"`, `yiw`).
+- [ ] **Git Hunk Staging:** Interactive patch/hunk staging within the SCM panel (`git add -p` style).
+- [ ] **LSP Code Navigation:** Symbol outline / breadcrumbs picker and basic snippet expansion.
+- [ ] **PTY Scrollback History:** Navigable scrollback buffer for the embedded terminal panel.
+- [ ] **Tree-Sitter Expansion:** Streamlined pluggable grammar bindings for additional systems and scripting languages.
+
+> For detailed technical specifications, architectural DAGs, and out-of-scope boundaries, check out the [Roadmap Specification](https://github.com/ori-team/oride/blob/main/docs/en/planning/alpha6-roadmap.md).
 
 ## Contributing
 

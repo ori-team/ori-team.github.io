@@ -2,21 +2,25 @@
 
 ## Stack
 
-Astro 7 + Starlight (com overrides de `Head`, `Header`, `Hero`, `Footer`) + UnoCSS via plugin Vite direto (`unocss/vite`, só utilitários, sem preflight) + `phosphor-astro` via barril `src/lib/icons.ts` + `animejs` + Geist Variable/Mono via Fontsource. Referência de padrão: `ori-website` (Astro+Starlight com overrides).
+Astro 7 (puro, sem Starlight — ver ADR-004) + `@astrojs/mdx` + `@astrojs/sitemap` + UnoCSS via plugin Vite direto (`unocss/vite`, só utilitários, sem preflight) + `phosphor-astro` via barril `src/lib/icons.ts` + `animejs` + Geist Variable/Mono via Fontsource.
 
 > Por que não `@unocss/astro` nem `import ... from "phosphor-astro"`: o primeiro quebra o build no Vite 8/rolldown; o segundo não tem entry-point. Detalhes nos comentários de `astro.config.mjs` e `src/lib/icons.ts`.
 
 ## Estrutura
 
-- `astro.config.mjs` — Starlight sem sidebar (`sidebar: []`), componentes custom, `custom.css`.
-- `src/styles/custom.css` — **único lugar de tokens**: vars `--sl-*` (bege `#faf7f0` no light, marrom quente no dark) + classes `.oriteam-*`.
-- Componentes Astro pequenos, um assunto cada (`Header`, `HeroHome`, `OriTeamLogo`, `Footer`, …).
-- Páginas = content collection `docs` (`src/content/docs/`).
+- `astro.config.mjs` — `site` + `base` (Pages), Uno, MDX, sitemap.
+- `src/layouts/BaseLayout.astro` — head, anti-flash de tema, ClientRouter, header/conteúdo/rodapé.
+- `src/pages/` — `index`, `projetos/index`, `projetos/[slug]`, `contribuidores/index`, `404`.
+- `src/styles/tokens.css` — **único lugar de tokens** (`--ot-*`, por tema) + base + `.ot-markdown`.
+- Componentes Astro pequenos, um assunto cada (`Header`, `ThemeToggle`, `HomeHero`, `OriTeamLogo`, `Footer`, …).
+- Detalhe: coleção `projects` (`src/content/projects/*.mdx`, gerados) + rota dinâmica.
 
 ## Logo e tema
 
-`src/assets/ori-team-logo.svg` deriva de `ori-lang/branding/ori-logo-w_text.svg` com uma única transformação documentada: `#141313 → currentColor`, controlado por `--oriteam-logo-ink` por tema. Cores da marca preservadas: `#d4b893` (cão), `#eb772a` (detalhe/wordmark), `#fefefe` (olhos). Textos vetorizados (sem dependência de fonte). `logo-ref/logo-inkscape.svg` é o arquivo-fonte do Inkscape — não usar direto na web.
+`src/assets/ori-team-logo.svg` deriva de `ori-lang/branding/ori-logo-w_text.svg` com transformações documentadas: `#141313 → currentColor` (via `--ot-logo-ink`) + filtro `ori-team-outline` (contorno claro, só no dark). Cores da marca preservadas: `#d4b893` (cão), `#eb772a` (detalhe), `#fefefe` (olhos). Textos vetorizados (sem dependência de fonte). `logo-ref/logo-inkscape.svg` é o arquivo-fonte do Inkscape — não usar direto na web.
 
-## Dados (a partir do PR2)
+Tema: escolha salva → sistema → claro. Toggle persiste em `localStorage`; `theme-init.js` aplica antes da pintura.
 
-`src/data/projects.ts` é a única fonte de metadados (slug, nome, repo, ícone Phosphor, resumo, tags). Páginas `projetos/<slug>.mdx` são **geradas** por `scripts/sync-readmes.mjs` no `prebuild` (nunca editar à mão — cabeçalho `generated: true`).
+## Dados
+
+`src/data/projects.ts` é a única fonte de metadados (slug, nome, repo, ícone Phosphor, resumo, tags). Páginas `projects/<slug>.mdx` são **geradas** por `scripts/sync-readmes.mjs` no `predev`/`prebuild` (nunca editar à mão — cabeçalho `generated: true`). Links internos do site usam `src/lib/url.ts` (`siteUrl`) para respeitar o `base`.

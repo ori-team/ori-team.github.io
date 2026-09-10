@@ -1,12 +1,17 @@
 # oriteam-website
 
 Vitrine institucional da [ori-team](https://github.com/ori-team): projetos, detalhes e contribuidores.
+Publicado em <https://ori-team.github.io/oriteam-website/> via GitHub Pages.
 
-Stack: Astro + Starlight + UnoCSS + phosphor-astro + anime.js. Documentação do projeto em `docs/ATLAS.md`.
+Stack: Astro + Starlight + UnoCSS + phosphor-astro + anime.js. Decisões em `docs/adr/`, mapa em `docs/ATLAS.md`.
 
 ```sh
 npm install
-npm run dev      # ambiente local
-npm run build    # build de produção
-npm run check    # astro check
+npm run dev          # local (importa os READMEs via predev)
+npm run build        # produção (prebuild + astro build)
+npm run check        # astro check (tipos)
+npm run check-links  # links internos do dist/
+npm run sync-readmes # regenera src/content/docs/projetos/*.mdx
 ```
+
+Páginas de detalhe (`/projetos/<slug>/`) são **geradas** do README de cada repo — nunca edite à mão.

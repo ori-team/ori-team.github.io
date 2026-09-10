@@ -6,6 +6,7 @@
   "description": "Site institucional da ori-team: projetos, detalhes e contribuidores",
   "scripts": {
     "sync-readmes": "node scripts/sync-readmes.mjs",
+    "check-links": "node scripts/check-links.mjs",
     "predev": "npm run sync-readmes",
     "prebuild": "npm run sync-readmes",
     "dev": "astro dev",
@@ -14,7 +15,8 @@
     "check": "astro check"
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.42.0",
+    "@astrojs/mdx": "^8.0.1",
+    "@astrojs/sitemap": "^3.7.4",
     "@fontsource-variable/geist": "^5.2.5",
     "@fontsource-variable/geist-mono": "^5.2.5",
     "animejs": "^4.5.0",
