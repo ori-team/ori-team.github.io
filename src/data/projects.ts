@@ -1,7 +1,7 @@
 // Única fonte de metadados dos projetos da vitrine.
 // Detalhes longos vêm do README de cada repo (scripts/sync-readmes.mjs, PR3).
 
-export type ProjectIcon = "code" | "terminal" | "globe";
+export type ProjectIcon = "code" | "terminal";
 
 export interface ProjectMeta {
   slug: string;
@@ -28,13 +28,5 @@ export const PROJECTS: ProjectMeta[] = [
     icon: "terminal",
     summary: "Oride: editor/IDE de terminal modular, leve e extensível, feito em Rust.",
     tags: ["editor", "terminal", "rust"],
-  },
-  {
-    slug: "oriteam-website",
-    name: "oriteam-website",
-    repo: "https://github.com/ori-team/oriteam-website",
-    icon: "globe",
-    summary: "Este site: vitrine institucional da ori-team em Astro + Starlight.",
-    tags: ["website", "astro"],
   },
 ];

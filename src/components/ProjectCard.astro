@@ -1,12 +1,12 @@
 ---
 // Um card de projeto. O layout (grade ou linha) vem do container via CSS:
 // `.projects[data-view="grid"]` vs `.projects[data-view="list"]`.
-import { Code, Globe, Terminal } from "../lib/icons";
+import { Code, Terminal } from "../lib/icons";
 import { siteUrl } from "../lib/url";
 import RepoLink from "./RepoLink.astro";
 import type { ProjectMeta } from "../data/projects";
 
-const ICONS = { code: Code, terminal: Terminal, globe: Globe } as const;
+const ICONS = { code: Code, terminal: Terminal } as const;
 
 interface Props {
   project: ProjectMeta;

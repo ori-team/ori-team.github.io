@@ -7,10 +7,9 @@
 // Props: repassadas ao <svg> (use width/height ou class para tamanho).
 export { default as ArrowSquareOut } from "phosphor-astro/ArrowSquareOut.astro";
 export { default as Code } from "phosphor-astro/Code.astro";
-export { default as Globe } from "phosphor-astro/Globe.astro";
 export { default as GridFour } from "phosphor-astro/GridFour.astro";
-export { default as House } from "phosphor-astro/House.astro";
 export { default as GithubLogo } from "phosphor-astro/GithubLogo.astro";
+export { default as House } from "phosphor-astro/House.astro";
 export { default as List } from "phosphor-astro/List.astro";
 export { default as ListBullets } from "phosphor-astro/ListBullets.astro";
 export { default as Moon } from "phosphor-astro/Moon.astro";

@@ -1,10 +1,10 @@
 ---
 // Cabeçalho das páginas de detalhe: ícone, nome, resumo, tags e link externo.
-import { Code, Globe, Terminal } from "../lib/icons";
+import { Code, Terminal } from "../lib/icons";
 import RepoLink from "./RepoLink.astro";
 import { PROJECTS } from "../data/projects";
 
-const ICONS = { code: Code, terminal: Terminal, globe: Globe } as const;
+const ICONS = { code: Code, terminal: Terminal } as const;
 
 const { slug } = Astro.props as { slug: string };
 const project = PROJECTS.find((p) => p.slug === slug);

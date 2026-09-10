@@ -14,7 +14,6 @@ const outDir = path.join(root, "src", "content", "projects");
 const SOURCES = [
   { slug: "ori-lang", repo: "ori-team/ori-lang", localDir: "ori-lang" },
   { slug: "oride", repo: "ori-team/oride", localDir: "oride" },
-  { slug: "oriteam-website", repo: "ori-team/oriteam-website", localDir: "oriteam-website" },
 ];
 
 const REFS = ["main", "master"];
