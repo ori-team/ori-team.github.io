@@ -3,8 +3,10 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="Contribuidores" description="Quem constrói a ori-team.">
-  <h1 class="ot-page-title">Contribuidores</h1>
-  <p class="ot-page-lead">Quem constrói a ori-team.</p>
+  <div class="ot-page-head">
+    <h1 class="ot-page-title">Contribuidores</h1>
+    <p class="ot-page-lead">Quem constrói a ori-team.</p>
+  </div>
   <article class="contributor-card">
     <img
       src="https://github.com/raillen.png"
@@ -31,6 +33,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     gap: 1.25rem;
     align-items: flex-start;
     max-width: var(--ot-prose-width);
+    margin-inline: auto;
     padding: 1.5rem;
     border: 1px solid var(--ot-line-soft);
     border-radius: 0.75rem;

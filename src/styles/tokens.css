@@ -236,6 +236,17 @@ pre {
   color: var(--ot-ink-soft);
 }
 
+/* Cabeçalho de página centralizado (leitura). */
+.ot-page-head {
+  text-align: center;
+  max-width: var(--ot-prose-width);
+  margin-inline: auto;
+}
+
+.ot-page-head .ot-page-title {
+  margin-top: 2.5rem;
+}
+
 /* ---------- Markdown (READMEs importados) ---------- */
 
 .ot-markdown {

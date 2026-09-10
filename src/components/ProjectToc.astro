@@ -9,7 +9,8 @@ import { ListBullets, X } from "../lib/icons";
   <div class="toc-menu" hidden>
     <p>Nesta página</p>
     <ol></ol>
-  </div>
+</div>
+
   <button type="button" class="toc-button" aria-expanded="false" aria-label="Abrir capítulos">
     <span class="toc-icon-open" aria-hidden="true"><ListBullets width={22} height={22} /></span>
     <span class="toc-icon-close" aria-hidden="true"><X width={22} height={22} /></span>
@@ -17,17 +18,27 @@ import { ListBullets, X } from "../lib/icons";
 </div>
 
 <script>
+  // @ts-nocheck — scripts de componente viajam para o bundler como JS puro:
+  // sintaxe TS aqui quebra o parse e o código chega cru (e morto) no HTML.
   function initTocFab() {
-    document.querySelectorAll<HTMLElement>(".toc-fab").forEach((root) => {
-      // Estrutura sempre renderizada acima — `!` é seguro aqui.
-      const menu = root.querySelector<HTMLElement>(".toc-menu")!;
-      const list = root.querySelector<HTMLOListElement>(".toc-menu ol")!;
-      const button = root.querySelector<HTMLButtonElement>(".toc-button")!;
+    document.querySelectorAll(".toc-fab").forEach((root) => {
+      const menu = root.querySelector(".toc-menu");
+      const list = root.querySelector(".toc-menu ol");
+      const button = root.querySelector(".toc-button");
       const article = root.closest("article");
-      if (!article) return;
+      if (
+        !(root instanceof HTMLElement) ||
+        !(menu instanceof HTMLElement) ||
+        !(list instanceof HTMLOListElement) ||
+        !(button instanceof HTMLButtonElement) ||
+        !(article instanceof HTMLElement)
+      )
+        return;
+      // Congela os tipos: acesso via `ui.*` continua válido nos closures.
+      const ui = { root, menu, list, button, article };
 
-      list.replaceChildren();
-      article.querySelectorAll("h2, h3").forEach((heading) => {
+      ui.list.replaceChildren();
+      ui.article.querySelectorAll("h2, h3").forEach((heading) => {
         if (!(heading instanceof HTMLElement) || !heading.id || !heading.textContent?.trim()) return;
         const item = document.createElement("li");
         if (heading.tagName === "H3") item.classList.add("sub");
@@ -36,26 +47,26 @@ import { ListBullets, X } from "../lib/icons";
         link.textContent = heading.textContent.trim();
         link.addEventListener("click", () => setOpen(false));
         item.appendChild(link);
-        list.appendChild(item);
+        ui.list.appendChild(item);
       });
-      if (list.childElementCount === 0) return;
-      root.hidden = false;
+      if (ui.list.childElementCount === 0) return;
+      ui.root.hidden = false;
 
-      function setOpen(open: boolean) {
-        menu.hidden = !open;
-        button.setAttribute("aria-expanded", String(open));
-        button.setAttribute("aria-label", open ? "Fechar capítulos" : "Abrir capítulos");
-        root.classList.toggle("open", open);
+      function setOpen(open) {
+        ui.menu.hidden = !open;
+        ui.button.setAttribute("aria-expanded", String(open));
+        ui.button.setAttribute("aria-label", open ? "Fechar capítulos" : "Abrir capítulos");
+        ui.root.classList.toggle("open", open);
       }
 
-      button.addEventListener("click", () => setOpen(menu.hidden));
+      ui.button.addEventListener("click", () => setOpen(ui.menu.hidden));
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") setOpen(false);
       });
       document.addEventListener(
         "click",
         (event) => {
-          if (!root.contains(event.target as Node)) setOpen(false);
+          if (event.target instanceof Node && !ui.root.contains(event.target)) setOpen(false);
         },
         { passive: true },
       );
@@ -65,6 +76,8 @@ import { ListBullets, X } from "../lib/icons";
   document.addEventListener("astro:page-load", initTocFab);
   initTocFab();
 </script>
+
+
 
 <style>
   .toc-fab {

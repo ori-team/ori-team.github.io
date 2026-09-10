@@ -26,17 +26,21 @@ import { PROJECTS } from "../data/projects";
 </section>
 
 <script>
-  import { animate } from "animejs";
+  // @ts-nocheck — scripts de componente viajam para o bundler como JS puro:
+  // sintaxe TS aqui quebra o parse e o código chega cru (e morto) no HTML.
+  import { animate, stagger } from "animejs";
 
   const STORAGE_KEY = "oriteam-projects-view";
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  function applyView(root: HTMLElement, view: string) {
+  function applyView(root, view) {
     root.dataset.view = view;
-    root
-      .closest(".projects-section")
-      ?.querySelectorAll("[data-set-view]")
-      .forEach((btn) => btn.setAttribute("aria-pressed", String(btn.getAttribute("data-set-view") === view)));
+    const section = root.closest(".projects-section");
+    if (section) {
+      section.querySelectorAll("[data-set-view]").forEach((btn) => {
+        btn.setAttribute("aria-pressed", String(btn.getAttribute("data-set-view") === view));
+      });
+    }
     try {
       localStorage.setItem(STORAGE_KEY, view);
     } catch {
@@ -44,32 +48,32 @@ import { PROJECTS } from "../data/projects";
     }
   }
 
-  function entrance(root: HTMLElement) {
+  function entrance(root) {
     if (reduceMotion) return;
     animate(root.querySelectorAll(".project-card"), {
       opacity: [0, 1],
       translateY: [12, 0],
       duration: 600,
-      delay: (_el, i) => (i ?? 0) * 80,
+      delay: stagger(80),
       ease: "outExpo",
     });
   }
 
   function init() {
-    document.querySelectorAll<HTMLElement>(".projects").forEach((root) => {
-      let saved: string | null = null;
+    document.querySelectorAll(".projects").forEach((root) => {
+      let saved = null;
       try {
         saved = localStorage.getItem(STORAGE_KEY);
       } catch {
         /* modo privado: usa o padrão */
       }
       applyView(root, saved === "list" ? "list" : "grid");
-      root
-        .closest(".projects-section")
-        ?.querySelectorAll("[data-set-view]")
-        .forEach((btn) =>
-          btn.addEventListener("click", () => applyView(root, btn.getAttribute("data-set-view") ?? "grid")),
-        );
+      const section = root.closest(".projects-section");
+      if (section) {
+        section.querySelectorAll("[data-set-view]").forEach((btn) => {
+          btn.addEventListener("click", () => applyView(root, btn.getAttribute("data-set-view") || "grid"));
+        });
+      }
       entrance(root);
     });
   }

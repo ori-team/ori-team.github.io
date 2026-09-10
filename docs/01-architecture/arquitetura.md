@@ -21,6 +21,10 @@ Astro 7 (puro, sem Starlight — ver ADR-004) + `@astrojs/mdx` + `@astrojs/sitem
 
 Tema: escolha salva → sistema → claro. Toggle persiste em `localStorage`; `theme-init.js` aplica antes da pintura.
 
+## Client-side
+
+`<script>` em componente `.astro` deve ser **JS puro, sem sintaxe TS**: qualquer `<T>`/anotação quebra o parse do bundler e o código chega cru (e morto) no HTML — foi assim que o toggle e o FAB quebraram silenciosamente (PR9). Imports de pacote (`animejs`) funcionam. `// @ts-nocheck` no topo desses scripts com o motivo.
+
 ## Dados
 
 `src/data/projects.ts` é a única fonte de metadados (slug, nome, repo, ícone Phosphor, resumo, tags). Páginas `projects/<slug>.mdx` são **geradas** por `scripts/sync-readmes.mjs` no `predev`/`prebuild` (nunca editar à mão — cabeçalho `generated: true`). Links internos do site usam `src/lib/url.ts` (`siteUrl`) para respeitar o `base`.
