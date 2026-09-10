@@ -1,0 +1,79 @@
+---
+// Hero da home: logo + tagline + ações vindas do frontmatter da página.
+import OriTeamLogo from "./OriTeamLogo.astro";
+
+interface Action {
+  text: string;
+  link: string;
+  variant?: "primary" | "secondary" | "minimal";
+  icon?: string;
+}
+
+const { title, tagline, actions = [] } = Astro.props as {
+  title: string;
+  tagline?: string;
+  actions?: Action[];
+};
+---
+
+<div class="oriteam-hero">
+  <OriTeamLogo />
+  <h1 class="sr-only">{title}</h1>
+  {tagline && <p class="tagline">{tagline}</p>}
+  {
+    actions.length > 0 && (
+      <div class="actions">
+        {actions.map((action) => (
+          <a
+            href={action.link}
+            class:list={["action", action.variant ?? "secondary"]}
+            {...(action.link.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}
+          >
+            {action.text}
+          </a>
+        ))}
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+  .actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .action {
+    padding: 0.6rem 1.25rem;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid var(--sl-color-hairline);
+  }
+  .action.primary {
+    background: var(--sl-color-text);
+    color: var(--sl-color-text-invert);
+    border-color: transparent;
+  }
+  .action.secondary,
+  .action.minimal {
+    color: var(--sl-color-text);
+  }
+  .action:hover {
+    border-color: var(--sl-color-text-accent);
+    color: var(--sl-color-text-accent);
+  }
+  .action.primary:hover {
+    background: var(--sl-color-text-accent);
+    color: var(--sl-color-text-invert);
+  }
+</style>

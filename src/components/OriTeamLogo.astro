@@ -1,0 +1,18 @@
+---
+// Logo da ori-team como SVG inline: os traços escuros usam currentColor,
+// então a mesma arte se adapta ao light (tinta escura) e ao dark (claro).
+// Derivada de ori-lang/branding/ori-logo-w_text.svg — ver docs/adr.
+import logoRaw from "../assets/ori-team-logo.svg?raw";
+---
+
+<div class="oriteam-hero-logo" role="img" aria-label="Logo da ori-team">
+  <Fragment set:html={logoRaw} />
+</div>
+
+<style>
+  .oriteam-hero-logo :global(svg) {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+</style>

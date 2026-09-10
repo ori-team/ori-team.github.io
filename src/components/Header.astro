@@ -1,0 +1,31 @@
+---
+// Header custom: esquerda só "ori-team", direita nav + busca + tema.
+// A página ativa é marcada via aria-current para o CSS destacar.
+import Search from "@astrojs/starlight/components/Search.astro";
+import ThemeSelect from "@astrojs/starlight/components/ThemeSelect.astro";
+
+const links = [
+  { href: "/", label: "home" },
+  { href: "/projetos/", label: "projetos" },
+  { href: "/contribuidores/", label: "contribuidores" },
+];
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+---
+
+<div class="oriteam-header">
+  <a href="/" class="oriteam-brand">ori-team</a>
+  <nav class="oriteam-nav" aria-label="Principal">
+    {
+      links.map((link) => (
+        <a href={link.href} aria-current={isActive(link.href) ? "page" : undefined}>
+          {link.label}
+        </a>
+      ))
+    }
+  </nav>
+  <Search {...Astro.props} />
+  <ThemeSelect {...Astro.props} />
+</div>

@@ -1,0 +1,29 @@
+{
+  "name": "oriteam-website",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Site institucional da ori-team: projetos, detalhes e contribuidores",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.42.0",
+    "@fontsource-variable/geist": "^5.2.5",
+    "@fontsource-variable/geist-mono": "^5.2.5",
+    "animejs": "^4.5.0",
+    "astro": "^7.3.2",
+    "phosphor-astro": "^2.1.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.7.0",
+    "unocss": "^66.10.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

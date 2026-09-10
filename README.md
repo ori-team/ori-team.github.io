@@ -1,6 +1,12 @@
-# OriTeam Website — README de teste
+# oriteam-website
 
-Este é um README de teste para validar o push para https://github.com/ori-team/oriteam-website.
+Vitrine institucional da [ori-team](https://github.com/ori-team): projetos, detalhes e contribuidores.
 
-- Criado em: 2026-09-10
-- Objetivo: apenas testar o fluxo de commit + push.
+Stack: Astro + Starlight + UnoCSS + phosphor-astro + anime.js. Documentação do projeto em `docs/ATLAS.md`.
+
+```sh
+npm install
+npm run dev      # ambiente local
+npm run build    # build de produção
+npm run check    # astro check
+```
