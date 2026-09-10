@@ -1,74 +1,160 @@
 ---
-// Índice da página de detalhe: monta a lista de h2/h3 do artigo no cliente
-// (evita adivinhar slugs de âncora no build). Some se não houver seções.
+// Capítulos do README em botão flutuante (canto direito): abre um menu
+// pequeno com as seções (h2/h3) e navega à âncora ao clicar. Some quando
+// o artigo não tem seções. Some o menu com Escape, clique fora ou no link.
+import { ListBullets, X } from "../lib/icons";
 ---
 
-<nav class="project-toc" aria-label="Nesta página" hidden>
-  <p>Nesta página</p>
-  <ol></ol>
-</nav>
+<div class="toc-fab" hidden>
+  <div class="toc-menu" hidden>
+    <p>Nesta página</p>
+    <ol></ol>
+  </div>
+  <button type="button" class="toc-button" aria-expanded="false" aria-label="Abrir capítulos">
+    <span class="toc-icon-open" aria-hidden="true"><ListBullets width={22} height={22} /></span>
+    <span class="toc-icon-close" aria-hidden="true"><X width={22} height={22} /></span>
+  </button>
+</div>
 
 <script>
-  function buildToc() {
-    document.querySelectorAll<HTMLElement>(".project-toc").forEach((nav) => {
-      const article = nav.closest("article");
-      const list = nav.querySelector("ol");
-      if (!article || !list) return;
+  function initTocFab() {
+    document.querySelectorAll<HTMLElement>(".toc-fab").forEach((root) => {
+      // Estrutura sempre renderizada acima — `!` é seguro aqui.
+      const menu = root.querySelector<HTMLElement>(".toc-menu")!;
+      const list = root.querySelector<HTMLOListElement>(".toc-menu ol")!;
+      const button = root.querySelector<HTMLButtonElement>(".toc-button")!;
+      const article = root.closest("article");
+      if (!article) return;
+
       list.replaceChildren();
       article.querySelectorAll("h2, h3").forEach((heading) => {
-        if (!heading.id || !heading.textContent?.trim()) return;
+        if (!(heading instanceof HTMLElement) || !heading.id || !heading.textContent?.trim()) return;
         const item = document.createElement("li");
         if (heading.tagName === "H3") item.classList.add("sub");
         const link = document.createElement("a");
         link.href = `#${heading.id}`;
         link.textContent = heading.textContent.trim();
+        link.addEventListener("click", () => setOpen(false));
         item.appendChild(link);
         list.appendChild(item);
       });
-      nav.hidden = list.childElementCount === 0;
+      if (list.childElementCount === 0) return;
+      root.hidden = false;
+
+      function setOpen(open: boolean) {
+        menu.hidden = !open;
+        button.setAttribute("aria-expanded", String(open));
+        button.setAttribute("aria-label", open ? "Fechar capítulos" : "Abrir capítulos");
+        root.classList.toggle("open", open);
+      }
+
+      button.addEventListener("click", () => setOpen(menu.hidden));
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") setOpen(false);
+      });
+      document.addEventListener(
+        "click",
+        (event) => {
+          if (!root.contains(event.target as Node)) setOpen(false);
+        },
+        { passive: true },
+      );
     });
   }
 
-  document.addEventListener("astro:page-load", buildToc);
-  buildToc();
+  document.addEventListener("astro:page-load", initTocFab);
+  initTocFab();
 </script>
 
 <style>
-  .project-toc {
-    border: 1px solid var(--ot-line-soft);
+  .toc-fab {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.5rem;
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.75rem;
+  }
+  .toc-fab[hidden] {
+    display: none;
+  }
+  /* Acima da tabbar no mobile. */
+  @media (max-width: 640px) {
+    .toc-fab {
+      bottom: calc(4.5rem + env(safe-area-inset-bottom));
+    }
+  }
+
+  .toc-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: 1px solid var(--ot-line);
+    background: var(--ot-ink);
+    color: var(--ot-on-ink);
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgb(0 0 0 / 0.18);
+  }
+  .toc-button:hover {
+    background: var(--ot-accent);
+    border-color: transparent;
+  }
+  .toc-icon-close {
+    display: none;
+  }
+  .toc-fab.open .toc-icon-open {
+    display: none;
+  }
+  .toc-fab.open .toc-icon-close {
+    display: block;
+  }
+  .toc-button svg {
+    display: block;
+  }
+
+  .toc-menu {
+    width: min(18rem, calc(100vw - 2.5rem));
+    max-height: min(24rem, calc(100vh - 10rem));
+    overflow-y: auto;
+    border: 1px solid var(--ot-line);
     border-radius: 0.75rem;
     background: var(--ot-surface);
     padding: 1rem 1.25rem;
-    margin-bottom: 2rem;
+    box-shadow: 0 8px 32px rgb(0 0 0 / 0.2);
   }
-  .project-toc[hidden] {
+  .toc-menu[hidden] {
     display: none;
   }
-  .project-toc p {
+  .toc-menu p {
     margin: 0 0 0.5rem;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--ot-ink-soft);
   }
-  .project-toc ol {
+  .toc-menu ol {
     margin: 0;
     padding: 0;
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.35rem;
   }
-  .project-toc li.sub {
+  .toc-menu li.sub {
     padding-left: 1rem;
   }
-  .project-toc a {
+  .toc-menu a {
     color: var(--ot-ink-soft);
     text-decoration: none;
     font-size: 0.9rem;
   }
-  .project-toc a:hover {
+  .toc-menu a:hover {
     color: var(--ot-accent);
   }
 </style>
